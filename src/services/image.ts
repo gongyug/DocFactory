@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import { ImageOptions } from '@/types/api';
 import { AppError } from '@/utils/errors';
 import { parseMarkdown, generateStyledHtml } from './markdown';
@@ -7,6 +8,7 @@ import { parseMarkdown, generateStyledHtml } from './markdown';
 async function getChromiumConfig() {
   // In Docker/local environment, use system chromium
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    console.log('Using system chromium:', process.env.PUPPETEER_EXECUTABLE_PATH);
     return {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: [
@@ -23,30 +25,24 @@ async function getChromiumConfig() {
   }
 
   // In Vercel/serverless, use @sparticuz/chromium
+  console.log('Loading @sparticuz/chromium for serverless environment');
   try {
-    const chromium = require('@sparticuz/chromium');
+    const executablePath = await chromium.executablePath();
+    console.log('Chromium executable path:', executablePath);
+
     return {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
+      executablePath: executablePath,
       headless: chromium.headless,
     };
   } catch (error) {
     console.error('Failed to load @sparticuz/chromium:', error);
-    // Fallback to system chromium
-    return {
-      executablePath: '/usr/bin/chromium-browser',
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--disable-gpu',
-      ],
-      headless: true,
-    };
+    throw new AppError(
+      'INTERNAL_ERROR',
+      'Failed to initialize browser',
+      'Chromium binary could not be loaded. This API requires a serverless-compatible browser.'
+    );
   }
 }
 
