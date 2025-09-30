@@ -25,7 +25,7 @@ git add .
 git commit -m "Initial commit: DocFactory API v1.0"
 
 # 添加远程仓库（替换为你的 GitHub 仓库地址）
-git remote add origin https://github.com/yourusername/docfactory.git
+git remote add origin https://github.com/gongyug/DocFactory.git
 
 # 推送到 GitHub
 git push -u origin main
@@ -300,7 +300,7 @@ vercel dev
 
 - Vercel 文档：https://vercel.com/docs
 - Vercel 支持：https://vercel.com/support
-- DocFactory Issues：https://github.com/yourusername/docfactory/issues
+- DocFactory Issues：https://github.com/gongyug/DocFactory/issues
 
 ---
 

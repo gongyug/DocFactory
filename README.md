@@ -37,8 +37,8 @@
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/docfactory.git
-cd docfactory
+git clone https://github.com/gongyug/DocFactory.git
+cd DocFactory
 ```
 
 2. Install dependencies
@@ -63,7 +63,7 @@ Your API will be available at `http://localhost:3000`
 ### Base URL
 
 ```
-https://your-app.vercel.app/api
+https://docfactory.vercel.app/api
 ```
 
 ### Authentication (Optional)
@@ -264,19 +264,19 @@ All errors follow this format:
 
 ```bash
 # PDF
-curl -X POST https://your-app.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.vercel.app/api/convert/pdf \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World", "options": {"format": "A4"}}' \
   --output document.pdf
 
 # Image
-curl -X POST https://your-app.vercel.app/api/convert/image \
+curl -X POST https://docfactory.vercel.app/api/convert/image \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World", "options": {"format": "png"}}' \
   --output document.png
 
 # DOCX
-curl -X POST https://your-app.vercel.app/api/convert/docx \
+curl -X POST https://docfactory.vercel.app/api/convert/docx \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World"}' \
   --output document.docx
@@ -290,14 +290,14 @@ curl -X POST https://your-app.vercel.app/api/convert/docx \
 
 ```bash
 # PDF（带认证）
-curl -X POST https://your-app.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.vercel.app/api/convert/pdf \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" \
   -d '{"markdown": "# Hello World", "options": {"format": "A4"}}' \
   --output document.pdf
 
 # 中文 PDF 示例
-curl -X POST https://your-app.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.vercel.app/api/convert/pdf \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" \
   -d '{
@@ -313,7 +313,7 @@ curl -X POST https://your-app.vercel.app/api/convert/pdf \
 // 带 API 密钥
 const apiKey = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
 
-const response = await fetch('https://your-app.vercel.app/api/convert/pdf', {
+const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -348,7 +348,7 @@ import requests
 api_key = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6'
 
 response = requests.post(
-    'https://your-app.vercel.app/api/convert/pdf',
+    'https://docfactory.vercel.app/api/convert/pdf',
     headers={
         'Authorization': f'Bearer {api_key}'
     },
@@ -382,7 +382,7 @@ const apiKey = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
 
 try {
   const response = await axios.post(
-    'https://your-app.vercel.app/api/convert/pdf',
+    'https://docfactory.vercel.app/api/convert/pdf',
     {
       markdown: '# Hello World\n\nThis is a **test**.',
       options: {
@@ -417,7 +417,7 @@ async function convertMarkdownToPdf(markdown, options = {}) {
   const apiKey = process.env.API_SECRET_KEY;
 
   try {
-    const response = await fetch('https://your-app.vercel.app/api/convert/pdf', {
+    const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -464,7 +464,7 @@ try {
 #### JavaScript (fetch)
 
 ```javascript
-const response = await fetch('https://your-app.vercel.app/api/convert/pdf', {
+const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -489,7 +489,7 @@ window.open(url);
 import requests
 
 response = requests.post(
-    'https://your-app.vercel.app/api/convert/pdf',
+    'https://docfactory.vercel.app/api/convert/pdf',
     json={
         'markdown': '# Hello World\n\nThis is a **test**.',
         'options': {
@@ -510,7 +510,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 const response = await axios.post(
-  'https://your-app.vercel.app/api/convert/pdf',
+  'https://docfactory.vercel.app/api/convert/pdf',
   {
     markdown: '# Hello World\n\nThis is a **test**.',
     options: {
@@ -676,9 +676,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Support
 
-- 📖 [Documentation](https://github.com/yourusername/docfactory)
-- 🐛 [Issue Tracker](https://github.com/yourusername/docfactory/issues)
-- 💬 [Discussions](https://github.com/yourusername/docfactory/discussions)
+- 📖 [Documentation](https://github.com/gongyug/DocFactory)
+- 🐛 [Issue Tracker](https://github.com/gongyug/DocFactory/issues)
+- 💬 [Discussions](https://github.com/gongyug/DocFactory/discussions)
 
 ---
 

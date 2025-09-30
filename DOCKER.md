@@ -441,4 +441,4 @@ docker scan docfactory:latest
 
 ---
 
-**需要帮助？** 在 [GitHub Issues](https://github.com/yourusername/docfactory/issues) 提问
+**需要帮助？** 在 [GitHub Issues](https://github.com/gongyug/DocFactory/issues) 提问

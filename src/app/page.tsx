@@ -18,7 +18,7 @@ export default function Home() {
 
       <h3>Example Request</h3>
       <pre style={{ background: '#f5f5f5', padding: '15px', borderRadius: '5px', overflow: 'auto' }}>
-{`curl -X POST https://your-app.vercel.app/api/convert/pdf \\
+{`curl -X POST https://docfactory.vercel.app/api/convert/pdf \\
   -H "Content-Type: application/json" \\
   -d '{
     "markdown": "# Hello World\\n\\nThis is a **test** document.",
@@ -32,7 +32,7 @@ export default function Home() {
 
       <h3>Resources</h3>
       <ul>
-        <li><a href="https://github.com/yourusername/docfactory">GitHub Repository</a></li>
+        <li><a href="https://github.com/gongyug/DocFactory">GitHub Repository</a></li>
         <li><a href="/api/health">API Health Check</a></li>
       </ul>
 

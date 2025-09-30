@@ -63,7 +63,7 @@ DocFactory - Markdown 文档格式转换 API 服务
 
 ### 4.1 基础 URL
 ```
-https://your-app.vercel.app/api
+https://docfactory.vercel.app/api
 ```
 
 ### 4.2 API 端点
