@@ -4,7 +4,7 @@ import { AppError } from '@/utils/errors';
 import { parseMarkdown, generateStyledHtml } from './markdown';
 
 // Chromium configuration based on environment
-function getChromiumConfig() {
+async function getChromiumConfig() {
   // In Docker/local environment, use system chromium
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     return {
@@ -27,10 +27,11 @@ function getChromiumConfig() {
     const chromium = require('@sparticuz/chromium');
     return {
       args: chromium.args,
-      executablePath: chromium.executablePath,
+      executablePath: await chromium.executablePath(),
       headless: chromium.headless,
     };
   } catch (error) {
+    console.error('Failed to load @sparticuz/chromium:', error);
     // Fallback to system chromium
     return {
       executablePath: '/usr/bin/chromium-browser',
@@ -58,7 +59,7 @@ export async function convertToPdf(
   let browser = null;
 
   try {
-    const config = getChromiumConfig();
+    const config = await getChromiumConfig();
 
     // Launch browser
     browser = await puppeteer.launch(config);
