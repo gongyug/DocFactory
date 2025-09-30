@@ -36,6 +36,9 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy source code
 COPY . .
 
+# Set environment variable for standalone build (Docker only)
+ENV BUILD_STANDALONE=true
+
 # Build the application
 RUN npm run build
 

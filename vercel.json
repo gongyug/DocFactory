@@ -2,12 +2,11 @@
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "outputDirectory": ".next",
   "regions": ["iad1"],
   "functions": {
-    "src/app/api/**/*.ts": {
-      "maxDuration": 10,
-      "memory": 1024
+    "api/convert/**": {
+      "maxDuration": 30,
+      "memory": 3008
     }
   }
 }
