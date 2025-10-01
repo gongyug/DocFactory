@@ -1,46 +1,40 @@
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import puppeteer from '@cloudflare/puppeteer';
 import { PDFOptions } from '@/types/api';
 import { AppError } from '@/utils/errors';
 import { parseMarkdown, generateStyledHtml } from './markdown';
 
-// Chromium configuration based on environment
-async function getChromiumConfig() {
-  // In Docker/local environment, use system chromium
-  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
-    console.log('Using system chromium:', process.env.PUPPETEER_EXECUTABLE_PATH);
-    return {
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--disable-gpu',
-      ],
-      headless: true,
-    };
-  }
-
-  // In Vercel/serverless, use @sparticuz/chromium
-  console.log('Loading @sparticuz/chromium for serverless environment');
+// Get browser instance for Cloudflare environment
+async function getBrowser(env?: any) {
   try {
-    const executablePath = await chromium.executablePath();
-    console.log('Chromium executable path:', executablePath);
+    // For Cloudflare Pages/Workers with Browser Rendering
+    if (env?.BROWSER) {
+      console.log('Using Cloudflare Browser Rendering API');
+      return await puppeteer.launch(env.BROWSER);
+    }
 
-    return {
-      args: chromium.args,
-      executablePath: executablePath,
-      headless: chromium.headless,
-    };
+    // For local development - use local puppeteer
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Development mode: Browser Rendering not available locally');
+      throw new AppError(
+        'INTERNAL_ERROR',
+        'Browser Rendering requires Cloudflare environment',
+        'Please use `npm run preview` with wrangler for local testing'
+      );
+    }
+
+    throw new AppError(
+      'INTERNAL_ERROR',
+      'Browser not available',
+      'BROWSER binding not found. Please configure Browser Rendering in wrangler.toml'
+    );
   } catch (error) {
-    console.error('Failed to load @sparticuz/chromium:', error);
+    if (error instanceof AppError) throw error;
+
+    console.error('Failed to initialize browser:', error);
     throw new AppError(
       'INTERNAL_ERROR',
       'Failed to initialize browser',
-      'Chromium binary could not be loaded. This API requires a serverless-compatible browser.'
+      error instanceof Error ? error.message : 'Unknown error'
     );
   }
 }
@@ -50,15 +44,14 @@ async function getChromiumConfig() {
  */
 export async function convertToPdf(
   markdown: string,
-  options: PDFOptions = {}
+  options: PDFOptions = {},
+  env?: any
 ): Promise<Buffer> {
   let browser = null;
 
   try {
-    const config = await getChromiumConfig();
-
-    // Launch browser
-    browser = await puppeteer.launch(config);
+    // Launch browser with Cloudflare Browser Rendering
+    browser = await getBrowser(env);
 
     const page = await browser.newPage();
 

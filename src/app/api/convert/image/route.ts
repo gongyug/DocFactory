@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 import { validateApiKey } from '@/middleware/auth';
 import { checkRateLimit } from '@/middleware/rateLimit';
 import { handleError } from '@/utils/errors';
@@ -6,8 +7,7 @@ import { validateMarkdown, validateOptions } from '@/utils/validation';
 import { convertToImage } from '@/services/image';
 import { ImageOptions } from '@/types/api';
 
-export const runtime = 'nodejs';
-export const maxDuration = 10;
+export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,8 +29,11 @@ export async function POST(request: NextRequest) {
       'css',
     ]);
 
+    // Get Cloudflare env for Browser Rendering
+    const { env } = getRequestContext();
+
     // Convert to image
-    const imageBuffer = await convertToImage(markdown, validOptions);
+    const imageBuffer = await convertToImage(markdown, validOptions, env);
 
     // Determine content type
     const contentType =

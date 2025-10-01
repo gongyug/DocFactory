@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 import { validateApiKey } from '@/middleware/auth';
 import { checkRateLimit } from '@/middleware/rateLimit';
 import { handleError } from '@/utils/errors';
@@ -6,8 +7,7 @@ import { validateMarkdown, validateOptions } from '@/utils/validation';
 import { convertToPdf } from '@/services/pdf';
 import { PDFOptions } from '@/types/api';
 
-export const runtime = 'nodejs';
-export const maxDuration = 10; // 10 seconds for Hobby plan
+export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,8 +29,11 @@ export async function POST(request: NextRequest) {
       'preferCSSPageSize',
     ]);
 
+    // Get Cloudflare env for Browser Rendering
+    const { env } = getRequestContext();
+
     // Convert to PDF
-    const pdfBuffer = await convertToPdf(markdown, validOptions);
+    const pdfBuffer = await convertToPdf(markdown, validOptions, env);
 
     // Return PDF
     return new NextResponse(pdfBuffer as any, {

@@ -1,0 +1,19 @@
+name = "docfactory"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = ".vercel/output/static"
+
+# Browser Rendering binding
+browser = { binding = "BROWSER" }
+
+# Environment variables
+[vars]
+NODE_ENV = "production"
+
+# Build configuration
+[build]
+command = "npm run build"
+
+# Browser Rendering limits:
+# Free plan: 10 min/day, 3 concurrent browsers
+# Paid plan: 10 hours/month, 10 concurrent browsers
+# Overage: $0.09/browser hour

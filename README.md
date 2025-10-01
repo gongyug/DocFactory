@@ -17,7 +17,7 @@
 ## Features
 
 - ✨ **Multiple Output Formats**: PDF, PNG, JPEG, DOCX, HTML
-- 🚀 **Vercel Ready**: Zero-config deployment to Vercel
+- 🚀 **Cloudflare Pages Ready**: Deploy to Cloudflare Pages with Browser Rendering API
 - 🔒 **Optional API Key Authentication**: Secure your API with custom keys
 - ⚡ **Rate Limiting**: Built-in rate limiting (60 req/min by default)
 - 🎨 **Custom Styling**: Support for custom CSS
@@ -63,7 +63,7 @@ Your API will be available at `http://localhost:3000`
 ### Base URL
 
 ```
-https://docfactory.vercel.app/api
+https://docfactory.pages.dev/api
 ```
 
 ### Authentication (Optional)
@@ -84,17 +84,17 @@ openssl rand -hex 32
 
 #### 设置环境变量
 
+**Cloudflare Pages:**
+```bash
+# 在 Cloudflare Pages 项目设置 -> Environment Variables 中添加
+API_SECRET_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
+```
+
 **Docker Compose:**
 ```yaml
 # docker-compose.yml
 environment:
   - API_SECRET_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
-```
-
-**Vercel:**
-```bash
-# 在 Vercel 项目设置 -> Environment Variables 中添加
-API_SECRET_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
 ```
 
 **本地开发:**
@@ -264,19 +264,19 @@ All errors follow this format:
 
 ```bash
 # PDF
-curl -X POST https://docfactory.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.pages.dev/api/convert/pdf \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World", "options": {"format": "A4"}}' \
   --output document.pdf
 
 # Image
-curl -X POST https://docfactory.vercel.app/api/convert/image \
+curl -X POST https://docfactory.pages.dev/api/convert/image \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World", "options": {"format": "png"}}' \
   --output document.png
 
 # DOCX
-curl -X POST https://docfactory.vercel.app/api/convert/docx \
+curl -X POST https://docfactory.pages.dev/api/convert/docx \
   -H "Content-Type: application/json" \
   -d '{"markdown": "# Hello World"}' \
   --output document.docx
@@ -290,14 +290,14 @@ curl -X POST https://docfactory.vercel.app/api/convert/docx \
 
 ```bash
 # PDF（带认证）
-curl -X POST https://docfactory.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.pages.dev/api/convert/pdf \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" \
   -d '{"markdown": "# Hello World", "options": {"format": "A4"}}' \
   --output document.pdf
 
 # 中文 PDF 示例
-curl -X POST https://docfactory.vercel.app/api/convert/pdf \
+curl -X POST https://docfactory.pages.dev/api/convert/pdf \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" \
   -d '{
@@ -313,7 +313,7 @@ curl -X POST https://docfactory.vercel.app/api/convert/pdf \
 // 带 API 密钥
 const apiKey = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
 
-const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
+const response = await fetch('https://docfactory.pages.dev/api/convert/pdf', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -348,7 +348,7 @@ import requests
 api_key = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6'
 
 response = requests.post(
-    'https://docfactory.vercel.app/api/convert/pdf',
+    'https://docfactory.pages.dev/api/convert/pdf',
     headers={
         'Authorization': f'Bearer {api_key}'
     },
@@ -382,7 +382,7 @@ const apiKey = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
 
 try {
   const response = await axios.post(
-    'https://docfactory.vercel.app/api/convert/pdf',
+    'https://docfactory.pages.dev/api/convert/pdf',
     {
       markdown: '# Hello World\n\nThis is a **test**.',
       options: {
@@ -417,7 +417,7 @@ async function convertMarkdownToPdf(markdown, options = {}) {
   const apiKey = process.env.API_SECRET_KEY;
 
   try {
-    const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
+    const response = await fetch('https://docfactory.pages.dev/api/convert/pdf', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -464,7 +464,7 @@ try {
 #### JavaScript (fetch)
 
 ```javascript
-const response = await fetch('https://docfactory.vercel.app/api/convert/pdf', {
+const response = await fetch('https://docfactory.pages.dev/api/convert/pdf', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -489,7 +489,7 @@ window.open(url);
 import requests
 
 response = requests.post(
-    'https://docfactory.vercel.app/api/convert/pdf',
+    'https://docfactory.pages.dev/api/convert/pdf',
     json={
         'markdown': '# Hello World\n\nThis is a **test**.',
         'options': {
@@ -510,7 +510,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 const response = await axios.post(
-  'https://docfactory.vercel.app/api/convert/pdf',
+  'https://docfactory.pages.dev/api/convert/pdf',
   {
     markdown: '# Hello World\n\nThis is a **test**.',
     options: {
@@ -526,20 +526,60 @@ fs.writeFileSync('document.pdf', response.data);
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+### Deploy to Cloudflare Pages (Recommended)
 
-1. Push your code to GitHub
+#### Prerequisites
 
-2. Import project in Vercel:
-   - Visit [vercel.com/new](https://vercel.com/new)
-   - Select your repository
-   - Click "Deploy"
+- Cloudflare account (Free plan supported!)
+- GitHub repository
 
-3. Set environment variables (optional):
-   - `API_SECRET_KEY`: Your API authentication key
-   - `RATE_LIMIT_PER_MINUTE`: Rate limit (default: 60)
+**Browser Rendering 免费额度:**
+- Free plan: 10 分钟/天, 3 个并发浏览器
+- Paid plan: 10 小时/月, 10 个并发浏览器 (超出后 $0.09/小时)
 
-4. Done! Your API is live at `https://your-project.vercel.app`
+#### Deployment Steps
+
+1. **Connect your repository to Cloudflare Pages**
+   - Visit [Cloudflare Dashboard](https://dash.cloudflare.com)
+   - Go to "Workers & Pages" → "Pages"
+   - Click "Create a project" → "Connect to Git"
+   - Select your GitHub repository
+
+2. **Configure build settings**
+   - Framework preset: `Next.js`
+   - Build command: `npm run build:cloudflare`
+   - Build output directory: `.vercel/output/static`
+   - Root directory: `/`
+
+3. **Enable Browser Rendering**
+   - Go to your Pages project → Settings → Functions
+   - Add Browser Rendering binding:
+     - Variable name: `BROWSER`
+     - Type: Browser Rendering
+
+4. **Set environment variables (optional)**
+   - Go to Settings → Environment Variables
+   - Add variables:
+     - `API_SECRET_KEY`: Your API authentication key
+     - `RATE_LIMIT_PER_MINUTE`: Rate limit (default: 60)
+     - `NODE_ENV`: production
+
+5. **Deploy**
+   - Click "Save and Deploy"
+   - Your API will be live at `https://your-project.pages.dev`
+
+#### Local Testing with Wrangler
+
+```bash
+# Install dependencies
+npm install
+
+# Preview locally with Cloudflare environment
+npm run preview
+
+# Deploy manually
+npm run deploy
+```
 
 ### Environment Variables
 
@@ -588,10 +628,11 @@ docfactory/
 
 ### Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 14 (App Router with Edge Runtime)
 - **Language**: TypeScript
+- **Deployment**: Cloudflare Pages
+- **Browser**: @cloudflare/puppeteer + Browser Rendering API
 - **Markdown Parser**: marked
-- **PDF/Image**: puppeteer-core + @sparticuz/chromium
 - **Word**: docx
 - **Code Highlighting**: highlight.js
 - **Styling**: github-markdown-css
@@ -599,19 +640,26 @@ docfactory/
 ### Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript check
+npm run dev                # Start development server (with Cloudflare dev platform)
+npm run build              # Build for production (Next.js)
+npm run build:cloudflare   # Build for Cloudflare Pages
+npm run preview            # Preview with Wrangler (local Cloudflare environment)
+npm run deploy             # Deploy to Cloudflare Pages
+npm run start              # Start production server (Node.js)
+npm run lint               # Run ESLint
+npm run type-check         # Run TypeScript check
 ```
 
-### Limitations (Vercel Hobby Plan)
+### Limitations (Cloudflare Workers)
 
-- **Execution Time**: 10 seconds max
-- **Memory**: 1024 MB
-- **Response Size**: 4.5 MB max
-- **Input Size**: 500 KB markdown max
+- **Execution Time**: 30 seconds max (CPU time)
+- **Memory**: 128 MB
+- **Response Size**: 100 MB max
+- **Input Size**: 500 KB markdown max (recommended)
+- **Browser Rendering**:
+  - **Free plan**: 10 分钟/天, 3 个并发浏览器
+  - **Paid plan**: 10 小时/月, 10 个并发浏览器
+  - 超额费用: $0.09/浏览器小时
 
 ## Chinese Font Support
 
