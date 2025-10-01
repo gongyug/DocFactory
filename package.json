@@ -30,8 +30,7 @@
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.4.0",
     "@cloudflare/workers-types": "^4.20250110.0",
-    "wrangler": "^3.100.0",
-    "vercel": "^37.0.0"
+    "wrangler": "^3.100.0"
   },
   "engines": {
     "node": ">=18.0.0"
