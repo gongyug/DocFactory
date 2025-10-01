@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     checkRateLimit(request);
 
     // Parse request body
-    const body = await request.json();
+    const body = await request.json() as { markdown?: string; options?: DocxOptions };
     const { markdown, options } = body;
 
     // Validate input

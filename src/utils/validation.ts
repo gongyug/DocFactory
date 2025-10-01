@@ -1,6 +1,6 @@
 import { AppError } from './errors';
 
-export function validateMarkdown(markdown: string) {
+export function validateMarkdown(markdown: string | undefined): asserts markdown is string {
   if (!markdown || typeof markdown !== 'string') {
     throw new AppError(
       'INVALID_MARKDOWN',
@@ -18,8 +18,6 @@ export function validateMarkdown(markdown: string) {
       `Markdown content exceeds the maximum size of 500KB (current: ${Math.round(sizeInBytes / 1024)}KB)`
     );
   }
-
-  return true;
 }
 
 export function validateOptions<T extends Record<string, any>>(
