@@ -1,4 +1,3 @@
-import puppeteer from '@cloudflare/puppeteer';
 import { ImageOptions } from '@/types/api';
 import { AppError } from '@/utils/errors';
 import { parseMarkdown, generateStyledHtml } from './markdown';
@@ -6,10 +5,13 @@ import { parseMarkdown, generateStyledHtml } from './markdown';
 // Get browser instance for Cloudflare environment
 async function getBrowser(env?: any) {
   try {
+    // Dynamically import puppeteer to avoid build-time issues with Node.js modules
+    const puppeteer = await import('@cloudflare/puppeteer');
+
     // For Cloudflare Pages/Workers with Browser Rendering
     if (env?.BROWSER) {
       console.log('Using Cloudflare Browser Rendering API');
-      return await puppeteer.launch(env.BROWSER);
+      return await puppeteer.default.launch(env.BROWSER);
     }
 
     // For local development - use local puppeteer
