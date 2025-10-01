@@ -76,15 +76,13 @@ export function generateStyledHtml(
       max-width: 980px;
       margin: 0 auto;
       padding: 45px;
-      font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     }
     .markdown-body {
       box-sizing: border-box;
-      font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     }
     /* Code blocks with Chinese font support */
     pre, code, .hljs {
-      font-family: 'PingFang SC', 'Source Code Pro', 'Monaco', 'Menlo', 'Consolas', monospace !important;
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Source Code Pro', 'Monaco', 'Menlo', 'Consolas', monospace !important;
     }
     @media (max-width: 767px) {
       body {
